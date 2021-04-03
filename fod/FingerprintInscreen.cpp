@@ -22,6 +22,7 @@
 #include <hardware_legacy/power.h>
 #include <cmath>
 #include <fstream>
+#include <unistd.h>
 
 #define COMMAND_NIT 10
 #define PARAM_NIT_FOD 1
@@ -38,6 +39,7 @@
 #define FOD_SENSOR_SIZE 202
 
 #define BRIGHTNESS_PATH "/sys/class/leds/lcd-backlight/brightness"
+#define DIM_LAYER_OFF_DELAY 300000
 
 namespace vendor {
 namespace lineage {
@@ -106,6 +108,7 @@ Return<void> FingerprintInscreen::onFinishEnroll() {
 
 Return<void> FingerprintInscreen::onPress() {
     acquire_wake_lock(PARTIAL_WAKE_LOCK, LOG_TAG);
+    usleep(DIM_LAYER_OFF_DELAY);
     set(DISPPARAM_PATH, DISPPARAM_HBM_FOD_ON);
     xiaomiFingerprintService->extCmd(COMMAND_NIT, PARAM_NIT_FOD);
     return Void();
