@@ -11,21 +11,27 @@ import /vendor/etc/init/trustonic.rc
 import ${ro.vendor.rc}init.nvdata.rc
 import /vendor/etc/init/microtrust.rc
 import /vendor/etc/init/hw/init.aee.rc
-import /system/etc/init/hw/init.aee.rc
+import /system_ext/etc/init/hw/init.aee.rc
 import /vendor/etc/init/vendor.mediatek.hardware.mtkpower@1.0-service.rc
-import /vendor/etc/init/android.hardware.boot@1.0-service.rc
+import /vendor/etc/init/android.hardware.boot@1.1-service.rc
+import /vendor/etc/init/android.hardware.boot@1.1-service-lazy.rc
 import /vendor/etc/init/vendor.mediatek.hardware.thp@1.0-service.rc
+
+#NFC
+import /vendor/etc/init/hw/init.stnfc.rc
 
 #copy from system/etc for APEX
 import /system/etc/init/apexd.rc
 import /system/etc/init/art_apex_boot_integrity.rc
 
+import /system/etc/init/vold.rc
 
 import /vendor/etc/init/hw/factory_init.project.rc
 import /system/etc/init/servicemanager.rc
 import /system/etc/init/hwservicemanager.rc
 import /system/etc/init/android.hidl.allocator@1.0-service.rc
-import /system/etc/init/vold.rc
+
+import ${ro.vendor.rc}multi_init.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -39,6 +45,20 @@ on early-init
 
     # Set the security context of /postinstall if present.
     restorecon /postinstall
+
+
+    # Set up linker config subdirectories based on mount namespaces
+    mkdir /linkerconfig/bootstrap 0755
+    mkdir /linkerconfig/default 0755
+
+    # Generate ld.config.txt for early executed processes
+    exec -- /system/bin/linkerconfig --target /linkerconfig/bootstrap
+    chmod 644 /linkerconfig/bootstrap/ld.config.txt
+    copy /linkerconfig/bootstrap/ld.config.txt /linkerconfig/default/ld.config.txt
+    chmod 644 /linkerconfig/default/ld.config.txt
+
+    # Mount bootstrap linker configuration as current
+    mount none /linkerconfig/bootstrap /linkerconfig bind rec
 
     start ueventd
 
@@ -57,10 +77,6 @@ on init
 
 sysclktz 0
 
-    start servicemanager
-    start hwservicemanager
-    start hidl_memory
-
     # Mix device-specific information into the entropy pool
     copy /proc/cmdline /dev/urandom
     copy /default.prop /dev/urandom
@@ -74,6 +90,9 @@ sysclktz 0
     # Backward compatibility.
     symlink /sys/kernel/debug /d
 
+
+# Link /vendor to /system/vendor for devices without a vendor partition.
+    symlink /system/vendor /vendor
 # Temp Backward compatibility
     symlink /dev/block/platform/bootdevice/by-name/boot /dev/bootimg
     symlink /dev/block/platform/bootdevice/by-name/recovery /dev/recovery
@@ -86,9 +105,6 @@ sysclktz 0
     symlink /dev/block/platform/bootdevice/by-name/para /dev/misc
     symlink /dev/block/platform/bootdevice/by-name/logo /dev/logo
 
-
-# Link /vendor to /system/vendor for devices without a vendor partition.
-    symlink /system/vendor /vendor
 
     # Mount cgroup mount point for cpu accounting
     mount cgroup none /acct cpuacct
@@ -117,6 +133,16 @@ sysclktz 0
     chmod 0664 /dev/stune/top-app/tasks
     chmod 0664 /dev/stune/rt/tasks
 
+    # Permissions for System Server and daemons.
+    chown system system /sys/power/autosleep
+    chown system system /sys/power/state
+    chown system system /sys/power/wakeup_count
+    chown radio wakelock /sys/power/wake_lock
+    chown radio wakelock /sys/power/wake_unlock
+    chmod 0660 /sys/power/state
+    chmod 0660 /sys/power/wake_lock
+    chmod 0660 /sys/power/wake_unlock
+
     restorecon_recursive /mnt
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
@@ -124,6 +150,22 @@ sysclktz 0
     mount configfs none /config nodev noexec nosuid
     chmod 0770 /config/sdcardfs
     chown system package_info /config/sdcardfs
+
+    # Mount binderfs
+    mkdir /dev/binderfs
+    mount binder binder /dev/binderfs stats=global
+    chmod 0755 /dev/binderfs
+
+    # Mount fusectl
+    mount fusectl none /sys/fs/fuse/connections
+
+    symlink /dev/binderfs/binder /dev/binder
+    symlink /dev/binderfs/hwbinder /dev/hwbinder
+    symlink /dev/binderfs/vndbinder /dev/vndbinder
+
+    chmod 0666 /dev/binderfs/hwbinder
+    chmod 0666 /dev/binderfs/binder
+    chmod 0666 /dev/binderfs/vndbinder
 
     mkdir /mnt/secure 0700 root root
     mkdir /mnt/secure/asec 0700 root root
@@ -134,17 +176,6 @@ sysclktz 0
     mkdir /mnt/user/0 0755 root root
     mkdir /mnt/expand 0771 system system
     mkdir /mnt/appfuse 0711 root root
-
-    # Permissions for System Server and daemons.
-    chown system system /sys/power/autosleep
-    chown system system /sys/power/state
-    chown system system /sys/power/wakeup_count
-    chown radio wakelock /sys/power/wake_lock
-    chown radio wakelock /sys/power/wake_unlock
-    chmod 0660 /sys/power/state
-    chmod 0660 /sys/power/wake_lock
-    chmod 0660 /sys/power/wake_unlock
-    chmod 0660 /sys/power/wakeup_count
 
     # Storage views to support runtime permissions
     mkdir /mnt/runtime 0700 root root
@@ -213,6 +244,10 @@ sysclktz 0
     symlink /proc/self/fd /dev/fd
     # set RLIMIT_NICE to allow priorities from 19 to -20
     setrlimit nice 40 40
+
+    start servicemanager
+    start hwservicemanager
+    start hidl_memory
 
     # Healthd can trigger a full boot from charger mode by signaling this
     # property when the power button is held.
@@ -302,16 +337,16 @@ on fs
 
 #INTERNAL_START
     write /proc/bootprof "INIT:Mount_START"
-    wait_for_prop hwservicemanager.ready "true"
-    start vendor.boot-hal-1-0
-    mount_all /vendor/etc/fstab.mt6885 ${ro.vendor.rc}multi_init.rc
+    start vendor.boot-hal-1-1
+    mount_all --early
     write /proc/bootprof "INIT:Mount_END"
 #INTERNAL_END
 # mount different fs end
 
 on post-fs
     start logd
-    start light-hal-2-0
+    start light-default
+    start system_suspend
     start merged_hal_service
     start capi-2-0
     start power-hal-1-0
@@ -385,13 +420,15 @@ on late-fs
 
     # HALs required before storage encryption can get unlocked (FBE/FDE)
     class_start early_hal
-
+    wait_for_prop hwservicemanager.ready "true"
     start vendor.keymaster-3-0
     start vendor.keymaster-3-0-trustonic
     start vendor.keymaster-4-0
     start vendor.keymaster-4-0-trustonic
     start vendor.keymaster-4-0-beanpod
     start keymaster_attestation-1-1
+    exec_start wait_for_keymaster
+    mount_all --late
 
 on post-fs-data
     write /proc/bootprof "INIT:post-fs-data"
@@ -643,10 +680,11 @@ on property:ro.debuggable=1
     start console
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
-service adbd /system/bin/adbd --root_seclabel=u:r:su:s0
+service adbd /apex/com.android.adbd/bin/adbd --root_seclabel=u:r:su:s0
     class core
-    socket adbd stream 660 system system
+    socket adbd seqpacket 660 system system
     disabled
+    override
     seclabel u:r:adbd:s0
 
 #INTERNAL_START
@@ -700,10 +738,10 @@ service dualmdlogger /system/bin/dualmdlogger
 
 service factory_no_image /vendor/bin/factory
     user root
-    group radio system wifi media gps audio bluetooth wakelock
+    group radio system wifi media gps audio bluetooth wakelock nfc
     capabilities BLOCK_SUSPEND NET_RAW NET_ADMIN SYS_ADMIN SYS_BOOT
 
-service emdlogger1 /system/bin/emdlogger1
+service emdlogger1 /system/system_ext/bin/emdlogger1
     class main
     user shell
     group system shell radio sdcard_rw inet sdcard_r media_rw
@@ -758,7 +796,7 @@ on property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
 
 on property:sys.usb.ffs.ready=1 && property:ro.boot.usbconfig=0 && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/UDC "none"
-    write /config/usb_gadget/g1/strings/0x409/serialnumber $ro.serialno
+    write /config/usb_gadget/g1/strings/0x409/serialnumber ${ro.serialno}
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb_acm"
     write /config/usb_gadget/g1/idProduct 0x2006
     symlink /config/usb_gadget/g1/functions/mass_storage.usb0 /config/usb_gadget/g1/configs/b.1/f1

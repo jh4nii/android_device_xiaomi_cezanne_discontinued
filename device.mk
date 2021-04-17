@@ -67,9 +67,11 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_volumes.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes.xml \
     $(LOCAL_PATH)/audio/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/misound_res.bin:$(TARGET_COPY_OUT_VENDOR)/etc/misound_res.bin \
-    $(LOCAL_PATH)/audio/offload_bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/offload_bluetooth_audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/r_submix_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/r_submix_audio_policy_configuration.xml \
     $(LOCAL_PATH)/audio/usb_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/usb_audio_policy_configuration.xml \
+    $(LOCAL_PATH)/audio/audio_policy_configuration_a2dp_offload_disabled.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_a2dp_offload_disabled.xml \
+    $(LOCAL_PATH)/audio/audio_policy_configuration_new.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_new.xml \
+    $(LOCAL_PATH)/audio/audio_policy_volumes_new.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_volumes_new.xml \
 
 # Bluetooth
 PRODUCT_PACKAGES += \
@@ -159,7 +161,6 @@ PRODUCT_PACKAGES += \
     capture_headsetmic.sh \
     playback.sh \
     playback_headset.sh \
-    set_product_name.sh \
     setup_backmic2headphone.sh \
     setup_headsetmic2headphone.sh \
     setup_headsetmic2rcv.sh \
@@ -178,7 +179,6 @@ PRODUCT_PACKAGES += \
     init.modem.rc \
     init.mt6885.rc \
     init.mt6885.usb.rc \
-    init.mt6889.rc \
     init.project.rc \
     init.sensor_2_0.rc \
     meta_init.connectivity.rc \
@@ -188,8 +188,9 @@ PRODUCT_PACKAGES += \
     multi_init.rc \
     fstab.enableswap \
     fstab.mt6885 \
-    fstab.mt6889 \
-    ueventd.qcom.rc \
+    fstab.emmc \
+    fstab.mt6885 \
+    ueventd.rc \
 
 # Telephony
 PRODUCT_PACKAGES += \

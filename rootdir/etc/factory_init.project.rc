@@ -30,9 +30,6 @@ on post-fs
     chmod 0660 /dev/spm
     chown system system /dev/spm
 
-    # disable cpuidle
-    write /proc/cpuidle/enable 0
-
 on boot
 
 service spm_script /vendor/bin/spm_loader
