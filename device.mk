@@ -25,7 +25,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay-arrow
+    $(LOCAL_PATH)/overlay-aosp
 
 # Overlays -- Override vendor ones
 PRODUCT_PACKAGES += \
@@ -79,7 +79,7 @@ PRODUCT_PACKAGES += \
 
 
 # Camera
-#ifeq ($(ARROW_GAPPS), true)
+#ifeq ($(aosp_GAPPS), true)
 #PRODUCT_PACKAGES += \
 #    GCamGOPrebuilt
 #else
