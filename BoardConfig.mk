@@ -63,7 +63,7 @@ BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6885
-TARGET_BOARD_PLATFORM_GPU := mali-G77mc9
+TARGET_BOARD_PLATFORM_GPU := mali-g77mc9
 
 # Audio
 USE_CUSTOM_AUDIO_POLICY := 1
