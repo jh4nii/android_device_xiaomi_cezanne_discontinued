@@ -79,7 +79,7 @@ PRODUCT_PACKAGES += \
 
 
 # Camera
-#ifeq ($(aosp_GAPPS), true)
+#ifeq ($(lineage_GAPPS), true)
 #PRODUCT_PACKAGES += \
 #    GCamGOPrebuilt
 #else

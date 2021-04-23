@@ -15,7 +15,7 @@ $(call inherit-product, device/xiaomi/cezanne/device.mk)
 $(call inherit-product, vendor/aosp/config/common.mk)
 
 # Device identifier. This must come after all inclusions.
-PRODUCT_NAME := aosp_cezanne
+PRODUCT_NAME := lineage_cezanne
 PRODUCT_DEVICE := cezanne
 PRODUCT_BRAND := Redmi
 PRODUCT_MODEL := M2006J10C
