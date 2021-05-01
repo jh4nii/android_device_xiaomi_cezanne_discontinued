@@ -1,13 +1,5 @@
 [
   {
-    "repository": "android_vendor_xiaomi_cezanne",
-    "target_path": "vendor/xiaomi/cezanne"
-  },
-  {
-    "repository": "android_packages_apps_GCamGOPrebuilt",
-    "target_path": "packages/apps/GCamGOPrebuilt"
-  },
-  {
     "repository" : "PixelExperience/vendor_mediatek_ims",
     "target_path": "vendor/mediatek/ims",
     "branch"     : "eleven"
@@ -27,6 +19,10 @@
    "target_path" : "device/mediatek/sepolicy",
    "branch"      : "eleven"
  },
+   {
+    "repository": "android_hardware_xiaomi",
+    "target_path": "hardware/xiaomi"
+  },
 ]
 
 // Assume that you are at the root directory of the Android source.

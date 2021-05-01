@@ -25,7 +25,7 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay-aosp
+    $(LOCAL_PATH)/overlay
 
 # Overlays -- Override vendor ones
 PRODUCT_PACKAGES += \
@@ -79,17 +79,11 @@ PRODUCT_PACKAGES += \
 
 
 # Camera
-#ifeq ($(lineage_GAPPS), true)
-#PRODUCT_PACKAGES += \
-#    GCamGOPrebuilt
-#else
-#PRODUCT_PACKAGES += \
-#    Snap
-#endif
 
-# Camera
 PRODUCT_PACKAGES += \
-    CameraGo
+    Snap
+
+
 
 PRODUCT_COPY_FILES += \
     hardware/interfaces/camera/provider/2.4/default/android.hardware.camera.provider@2.4-service_64.rc:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/init/android.hardware.camera.provider@2.4-service_64.rc
