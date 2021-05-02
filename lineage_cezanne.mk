@@ -11,8 +11,8 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from cezanne device
 $(call inherit-product, device/xiaomi/cezanne/device.mk)
 
-# Inherit some common aosp stuff.
-$(call inherit-product, vendor/aosp/config/common.mk)
+# Inherit some common lineage stuff.
+$(call inherit-product, vendor/lineage/config/common.mk)
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := lineage_cezanne

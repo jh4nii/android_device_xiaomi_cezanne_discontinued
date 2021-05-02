@@ -52,8 +52,19 @@ PRODUCT_BUILD_SUPER_PARTITION := false
 
 # Audio
 PRODUCT_PACKAGES += \
+    android.hardware.audio.effect@5.0-impl \
+    android.hardware.audio.common@6.0-util \
+    android.hardware.soundtrigger@2.2-impl \
+    android.hardware.bluetooth.audio@2.0-impl \
     audio.a2dp.default \
-    libaacwrapper
+    libaudiopreprocessing \
+    libbundlewrapper \
+    libdownmix \
+    libdynproc \
+    libeffectproxy \
+    libldnhncr \
+    libreverbwrapper \
+    libvisualizer
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/audio_policy_configuration.xml \

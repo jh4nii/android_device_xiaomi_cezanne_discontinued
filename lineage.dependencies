@@ -23,6 +23,14 @@
     "repository": "android_hardware_xiaomi",
     "target_path": "hardware/xiaomi"
   },
+  {
+    "repository" : "XayahSuSuSu/android_vendor_xiaomi_cezanne",
+    "target_path": "vendor/xiaomi/cezanne",
+  },
+  {
+    "repository" : "Project-Cezanne/android_kernel_xiaomi_cezanne",
+    "target_path": "kernel/xiaomi/cezanne",
+  },
 ]
 
 // Assume that you are at the root directory of the Android source.

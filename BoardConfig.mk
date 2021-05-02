@@ -143,10 +143,6 @@ TARGET_USES_MKE2FS := true
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
-# Sepolicy
-include device/mediatek/sepolicy/sepolicy.mk
-
-BOARD_PLAT_PRIVATE_SEPOLICY_DIR += $(DEVICE_PATH)/sepolicy/private
 
 # Telephony
 TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
