@@ -165,3 +165,7 @@ BOARD_VNDK_VERSION := current
 
 # Inherit from the proprietary version
 include vendor/xiaomi/cezanne/BoardConfigVendor.mk
+
+# Dont use QTI STACK
+TARGET_USE_QTI_BT_STACK :=  false
+TARGET_FWK_SUPPORTS_FULL_VALUEADDS := false
