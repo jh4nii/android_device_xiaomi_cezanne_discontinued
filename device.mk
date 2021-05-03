@@ -13,9 +13,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
 
-# Get non-open-source specific aspects
-$(call inherit-product, vendor/xiaomi/cezanne/cezanne-vendor.mk)
-
 # IMS
 $(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
 
@@ -265,4 +262,14 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/media/media_codecs_mediatek_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_mediatek_audio.xml \
    $(LOCAL_PATH)/media/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_mediatek_video.xml \
    $(LOCAL_PATH)/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
+
+#Trebuchet
+PRODUCT_COPY_FILES += \
+    Trebuchet \
+
+#Browser
+PRODUCT_COPY_FILES += \
+    Browser \
+
+
    
