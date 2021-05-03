@@ -4,17 +4,11 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-# Installs gsi keys into ramdisk, to boot a GSI with verified boot.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
-
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 
 # Setup dalvik vm configs
 $(call inherit-product, frameworks/native/build/phone-xhdpi-6144-dalvik-heap.mk)
-
-# IMS
-$(call inherit-product, vendor/mediatek/ims/mtk-ims.mk)
 
 # Inherit properties
 include $(LOCAL_PATH)/properties.mk
@@ -23,12 +17,6 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += \
     $(LOCAL_PATH)/overlay
-
-# Overlays -- Override vendor ones
-PRODUCT_PACKAGES += \
-    FrameworksResTarget \
-    DevicesOverlay \
-    DevicesAndroidOverlay
 
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
