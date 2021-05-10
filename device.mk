@@ -252,11 +252,11 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
 
 #Trebuchet
-PRODUCT_COPY_FILES += \
+PRODUCT_PACKAGES += \
     Trebuchet \
 
 #Browser
-PRODUCT_COPY_FILES += \
+PRODUCT_PACKAGES += \
     Browser \
 
 
