@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <bool name="a2dp_sink_automatically_request_audio_focus">false</bool>
     <bool name="config_bluetooth_pan_enable_autoconnect">true</bool>
     <bool name="enable_phone_policy">true</bool>
     <bool name="headset_client_initial_audio_route_allowed">true</bool>
