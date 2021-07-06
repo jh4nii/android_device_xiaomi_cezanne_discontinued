@@ -139,10 +139,6 @@ TARGET_USES_MKE2FS := true
 # Releasetools
 TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)
 
-
-# Telephony
-TARGET_PROVIDES_QTI_TELEPHONY_JAR := true
-
 # Verified Boot
 BOARD_AVB_ENABLE := true
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag

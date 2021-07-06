@@ -1,31 +1,8 @@
 [
-  {
-    "repository" : "PixelExperience/vendor_mediatek_ims",
-    "target_path": "vendor/mediatek/ims",
-    "branch"     : "eleven"
-  },
-  {
-    "repository" : "PixelExperience/vendor_mediatek-opensource",
-    "target_path": "vendor/mediatek/opensource",
-    "branch"     : "eleven"
-  },
-  {
-    "repository" : "PixelExperience/vendor_mediatek_interfaces",
-    "target_path": "vendor/mediatek/interfaces",
-    "branch"     : "eleven"
-  },
-  {
-   "repository"  : "PixelExperience/device_mediatek_sepolicy",
-   "target_path" : "device/mediatek/sepolicy",
-   "branch"      : "eleven"
- },
+
    {
     "repository": "android_hardware_xiaomi",
     "target_path": "hardware/xiaomi"
-  },
-  {
-    "repository" : "XayahSuSuSu/android_vendor_xiaomi_cezanne",
-    "target_path": "vendor/xiaomi/cezanne",
   },
   {
     "repository" : "Project-Cezanne/android_kernel_xiaomi_cezanne",
@@ -33,8 +10,3 @@
   },
 ]
 
-// Assume that you are at the root directory of the Android source.
-// git clone https://github.com/PixelExperience/vendor_mediatek_ims vendor/mediatek/ims/
-// git clone https://github.com/PixelExperience/vendor_mediatek-opensource vendor/mediatek/opensource/
-// git clone https://github.com/PixelExperience/vendor_mediatek_interfaces vendor/mediatek/interfaces/
-// git clone https://github.com/PixelExperience/device_mediatek_sepolicy device/mediatek/sepolicy/
