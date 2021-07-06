@@ -1,9 +1,3 @@
-Copyright (C) 2020 PixelExperience Plus Edition
-
-Device configuration for Redmi K30 Ultra
-
-=========================================
-
 The Redmi K30 Ultra (codenamed _"cezanne"_) is a high-end smartphone from Xiaomi.
 
 It was announced on August 2020. Release date was August 2020.
