@@ -29,6 +29,9 @@ on init
     chown system system /dev/stune/io
     chown system system /dev/stune/io/tasks
     chmod 0666 /dev/stune/io/tasks
+    chmod 0664 /sys/class/leds/blue/brightness
+    chmod 0664 /sys/class/leds/red/brightness
+    chmod 0664 /sys/class/leds/green/brightness
 
     # Support legacy paths
     symlink /sdcard /mnt/sdcard
