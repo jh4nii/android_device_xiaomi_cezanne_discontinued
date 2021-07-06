@@ -79,8 +79,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Snap
 
-
-
 PRODUCT_COPY_FILES += \
     hardware/interfaces/camera/provider/2.4/default/android.hardware.camera.provider@2.4-service_64.rc:$(TARGET_COPY_OUT_PRODUCT)/vendor_overlay/$(PRODUCT_TARGET_VNDK_VERSION)/etc/init/android.hardware.camera.provider@2.4-service_64.rc
 
@@ -136,11 +134,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     XiaomiParts
 
-# Power
-PRODUCT_PACKAGES += \
-    android.hardware.power-service.cezanne \
-    vendor.qti.hardware.perf@2.0
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     capture.sh \
@@ -175,19 +168,6 @@ PRODUCT_PACKAGES += \
     fstab.enableswap \
     fstab.mt6885 \
     fstab.emmc \
-# Telephony
-PRODUCT_PACKAGES += \
-    ims-ext-common \
-    ims_ext_common.xml \
-    qti-telephony-hidl-wrapper \
-    qti_telephony_hidl_wrapper.xml \
-    qti-telephony-utils \
-    qti_telephony_utils.xml \
-    telephony-ext
-
-PRODUCT_BOOT_JARS += \
-    telephony-ext
-
 
 # WiFi
 PRODUCT_PACKAGES += \
