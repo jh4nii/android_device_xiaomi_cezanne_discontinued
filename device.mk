@@ -136,38 +136,10 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-    capture.sh \
-    capture_headsetmic.sh \
-    playback.sh \
-    playback_headset.sh \
-    setup_backmic2headphone.sh \
-    setup_headsetmic2headphone.sh \
-    setup_headsetmic2rcv.sh \
-    setup_mainmic2headphone.sh \
-    setup_rcv2backmic.sh \
-    setup_rcv2mainmic.sh \
-    setup_rcv2topmic.sh \
-    setup_topmic2headphone.sh \
-    teardown_loopback.sh \
-    factory_init.connectivity.rc \
-    factory_init.project.rc \
-    factory_init.rc \
-    init.aee.rc \
-    init.ago.rc \
-    init.connectivity.rc \
-    init.modem.rc \
     init.mt6885.rc \
     init.mt6885.usb.rc \
-    init.project.rc \
-    init.sensor_2_0.rc \
-    meta_init.connectivity.rc \
-    meta_init.modem.rc \
-    meta_init.project.rc \
-    meta_init.rc \
-    multi_init.rc \
-    fstab.enableswap \
     fstab.mt6885 \
-    fstab.emmc \
+    ueventd.mt6885.rc\
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -231,13 +203,6 @@ PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/media/media_codecs_mediatek_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_mediatek_video.xml \
    $(LOCAL_PATH)/media/media_codecs_performance.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance.xml \
 
-#Trebuchet
-PRODUCT_PACKAGES += \
-    Trebuchet \
-
-#Browser
-PRODUCT_PACKAGES += \
-    Browser \
 
 
    
