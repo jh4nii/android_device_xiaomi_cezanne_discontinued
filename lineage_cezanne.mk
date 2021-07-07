@@ -12,13 +12,13 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/xiaomi/cezanne/device.mk)
 
 # Inherit some common lineage stuff.
-$(call inherit-product, vendor/lineage/config/common.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := lineage_cezanne
 PRODUCT_DEVICE := cezanne
 PRODUCT_BRAND := Redmi
-PRODUCT_MODEL := M2006J10C
+PRODUCT_MODEL := Redmi K30 Ultra
 PRODUCT_MANUFACTURER := Xiaomi
 DEVICE_MAINTAINER := Xayah,Raspberry-Monster,Laulan56
 
