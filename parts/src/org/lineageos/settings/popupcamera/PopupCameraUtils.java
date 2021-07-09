@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package org.mokee.settings.popupcamera;
+package org.lineageos.settings.popupcamera;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.UserHandle;
 
-public class PopupCameraSettingsActivity extends PreferenceActivity {
+public class PopupCameraUtils {
 
-    private static final String TAG_POPUPCAMERA = "popupcamera";
+    private static final String TAG = "PopupCameraUtils";
+    private static final boolean DEBUG = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new PopupCameraSettingsFragment(), TAG_POPUPCAMERA).commit();
+    public static void startService(Context context) {
+        context.startServiceAsUser(new Intent(context, PopupCameraService.class),
+                UserHandle.CURRENT);
     }
 }
