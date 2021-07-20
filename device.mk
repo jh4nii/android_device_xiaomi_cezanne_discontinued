@@ -132,7 +132,7 @@ PRODUCT_PACKAGES += \
 
 # Parts
 PRODUCT_PACKAGES += \
-    XiaomiParts
+     DeviceParts
 
 # Ramdisk
 PRODUCT_PACKAGES += \

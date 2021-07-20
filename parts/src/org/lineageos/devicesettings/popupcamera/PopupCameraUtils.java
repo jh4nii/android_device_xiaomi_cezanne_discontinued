@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 The LineageOS Project
+ * Copyright (C) 2019 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-package org.lineageos.settings.popupcamera;
+package org.lineageos.devicesettings.popupcamera;
 
-import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.UserHandle;
 
-public class PopupCameraSettingsActivity extends PreferenceActivity {
+public class PopupCameraUtils {
 
-    private static final String TAG_POPUPCAMERA = "popupcamera";
+  private static final String TAG = "PopupCameraUtils";
+  private static final boolean DEBUG = false;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getFragmentManager().beginTransaction().replace(android.R.id.content,
-                new PopupCameraSettingsFragment(), TAG_POPUPCAMERA).commit();
-    }
+  public static void startService(Context context) {
+    context.startServiceAsUser(new Intent(context, PopupCameraService.class),
+                               UserHandle.CURRENT);
+  }
 }

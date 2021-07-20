@@ -1,7 +1,4 @@
--keep class org.lineageos.settings.doze.* {
+-keep class org.lineageos.devicesettings.popupcamera.* {
   *;
 }
 
--keep class org.lineageos.settings.popupcamera.* {
-  *;
-}
